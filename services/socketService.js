@@ -1,8 +1,8 @@
 var socketIo = require('socket.io-client');
-var eventEnum = require('../../Robot.Common/enums/eventEnum');
+var eventEnum = require('../common/enums/eventEnum');
 
-var protoBufConfig = require('../../Robot.Common/protoBufConfig');
-var protoBufHelper = require('../../Robot.Common/protoBufHelper');
+var protoBufConfig = require('../common/protoBufConfig');
+var protoBufHelper = require('../common/protoBufHelper');
 
 var _serverAddress;
 var _socket;

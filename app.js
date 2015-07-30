@@ -1,6 +1,6 @@
-var eventEnum = require('../Robot.Common/enums/eventEnum');
-var protoBufConfig = require('../Robot.Common/protoBufConfig');
-var protoBufHelper = require('../Robot.Common/protoBufHelper');
+var eventEnum = require('./common/enums/eventEnum');
+var protoBufConfig = require('./common/protoBufConfig');
+var protoBufHelper = require('./common/protoBufHelper');
 var socketService = require('./services/socketService');
 var commandService = require('./services/commandService');
 

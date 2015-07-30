@@ -1,11 +1,14 @@
 var pythonService = require('./pythonService');
-var motionDirectionEnum = require('../../Robot.Common/enums/motionDirectionEnum');
+var motionDirectionEnum = require('../common/enums/motionDirectionEnum');
 var path = require('path');
 
 var pythonServoControlFile = path.join(__dirname, '../python/4wd_motor_control.py');
-
+var _runningProcess = null;
 function _runPython(direction) {
-    pythonService.runScript(pythonServoControlFile, direction);
+    if (_runningProcess) {
+        _runningProcess.kill();
+    }
+    _runningProcess = pythonService.runScript(pythonServoControlFile, direction);
 }
 
 module.exports = {
