@@ -22,7 +22,7 @@ function _init() {
 }
 
 function _runPython(direction) {
-    pwm.write(500); // Center a servo
+    pin3.write(500); // Center a servo
     pin1.write(gpio.LOW);
     pin2.write(gpio.HIGH);
     /*if (_runningProcess) {
