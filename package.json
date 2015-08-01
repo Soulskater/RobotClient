@@ -9,6 +9,9 @@
     "protobufjs": "~3",
     "q": "^1.4.1",
     "socket.io-client": "^1.3.5",
-    "sudo": "^1.0.3"
+    "sudo": "^1.0.3",
+    "rapsi": "1.3.2",
+    "raspi-pwm": "1.3.2",
+    "raspi-gpio": "1.4.0"
   }
 }
