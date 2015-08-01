@@ -64,6 +64,3 @@ class Orientation():
         return [math.degrees(roll),
                 math.degrees(pitch),
                 math.degrees(heading)]
-
-orientation = Orientation()
-print orientation.getOrientation()

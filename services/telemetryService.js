@@ -1,27 +1,13 @@
-var sudo = require('sudo');
+var pythonService = require('./pythonService');
 var q = require('q');
 var path = require('path');
 
-var pythonPaths = {
-    telemetry: "telemetry.py"
-};
+var telemetryPythonFile = path.join(__dirname, '../python/telemetry.py');
 
 function _getTelemetryData() {
-    var pythonFile = path.join(__dirname, '../../python', pythonPaths.telemetry);
     var deferred = q.defer();
-
-    var python = sudo(['python', pythonFile], {
-        cachePassword: true
-    });
-    var output = "";
-    python.stdout.on('data', function (data) {
-        output += data
-    });
-    python.on('close', function (code) {
-        if (code !== 0) {
-            deferred.reject(code);
-        }
-        var dataArray = JSON.parse(output);
+    pythonService.runScript(telemetryPythonFile).promise.then(function (data) {
+        var dataArray = JSON.parse(data);
         deferred.resolve({
             roll: Math.floor(dataArray[0]),
             pitch: Math.floor(dataArray[1]),

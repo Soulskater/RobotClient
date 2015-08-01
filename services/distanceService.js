@@ -1,12 +1,12 @@
-var socketService = require("./webSocketService");
-var protoBuf = require("protobufjs");
-var path = require("path");
-
-var builder = protoBuf.loadProtoFile(path.join(__dirname, "../", "proto", "message.proto"));
-var Message = builder.build("Message");
+var pythonService = require('./pythonService');
+var socketService = require('./socketService');
+var path = require('path');
+var q = require('q');
+var pythonFile = path.join(__dirname, '../python/distancemeter.py');
 
 function _getDistance() {
-    return 10;
+    var processPromise = pythonService.runScript(pythonFile);
+    return processPromise.promise;
 }
 
 module.exports = {
@@ -17,6 +17,5 @@ module.exports = {
                 value: _getDistance()
             }
         });
-        socketService.send(data);
     }
 };
