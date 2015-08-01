@@ -6,7 +6,7 @@ var pythonServoControlFile = path.join(__dirname, '../python/4wd_motor_control.p
 var _runningProcess = null;
 function _runPython(direction) {
     if (_runningProcess) {
-        _runningProcess.kill('SIGKILL');
+        _runningProcess.kill('SIGINT');
     }
     _runningProcess = pythonService.runScript(pythonServoControlFile, direction);
 }
