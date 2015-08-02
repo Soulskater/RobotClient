@@ -1,6 +1,6 @@
 message Telemetry {
-    required int32 distance = 1;
-    required int32 heading = 2;
-    required int32 pitch = 3;
-    required int32 roll = 4;
+    required int32 roll = 1;
+    required int32 pitch = 2;
+    required int32 heading = 3;
+    required int32 distance = 4;
 }

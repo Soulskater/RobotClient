@@ -4,7 +4,7 @@ var q = require('q');
 module.exports = {
     runScript: function (filePath, param) {
         var deferred = q.defer();
-        var pythonProcess = sudo(['python', filePath, param], {
+        var pythonProcess = sudo(['python', filePath, param || ""], {
             cachePassword: true
         });
         var output = "";
@@ -13,7 +13,6 @@ module.exports = {
             console.log("Python process data", data.toString());
         });
         pythonProcess.on('exit', function (code) {
-            console.log("Python process exited", code);
             if (code !== 0) {
                 deferred.reject(code);
             }

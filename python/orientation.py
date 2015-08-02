@@ -51,15 +51,15 @@ class Orientation():
 
         PI_F = 3.14159265
 
-        roll = math.atan2(acceleration.x, acceleration.z)
+        roll = math.atan2(acceleration.y, acceleration.z)
 
-        if acceleration.x * math.sin(roll) + acceleration.z * math.cos(roll) == 0:
-            pitch = (PI_F / 2) if acceleration.y > 0 else (-PI_F / 2)
+        if acceleration.y * math.sin(roll) + acceleration.z * math.cos(roll) == 0:
+            pitch = (PI_F / 2) if acceleration.x > 0 else (-PI_F / 2)
         else:
-            pitch = math.atan(-acceleration.y / (acceleration.x * math.sin(roll) + acceleration.z * math.cos(roll)))
+            pitch = math.atan(-acceleration.x / (acceleration.y * math.sin(roll) + acceleration.z * math.cos(roll)))
 
-        magCompensated = self.magTiltCompensation(acceleration, magnetic)
-        heading = math.atan2(magCompensated.x, magCompensated.z)
+        #magCompensated = self.magTiltCompensation(acceleration, magnetic)
+        heading = math.atan2(magnetic.z, magnetic.x)
 
         return [math.degrees(roll),
                 math.degrees(pitch),

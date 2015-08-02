@@ -8,7 +8,7 @@ function _runPython(direction) {
     if (_runningProcess) {
         _runningProcess.kill('SIGINT');
     }
-    _runningProcess = pythonService.runScript(pythonServoControlFile, direction);
+    _runningProcess = pythonService.runScript(pythonServoControlFile, direction).process;
 }
 
 module.exports = {

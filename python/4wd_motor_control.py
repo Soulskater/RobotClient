@@ -30,15 +30,15 @@ if direction == "backward":
     motor3.backward(speed)
     motor4.backward(speed)
 if direction == "left":
-    motor1.forward(speed)
-    motor2.forward(speed)
-    motor3.backward(speed)
-    motor4.backward(speed)
-if direction == "right":
     motor1.backward(speed)
     motor2.backward(speed)
     motor3.forward(speed)
     motor4.forward(speed)
+if direction == "right":
+    motor1.forward(speed)
+    motor2.forward(speed)
+    motor3.backward(speed)
+    motor4.backward(speed)
 if direction == "none":
     motor1.stop()
     motor2.stop()

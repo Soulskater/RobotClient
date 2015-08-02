@@ -13,8 +13,10 @@ module.exports = {
                 motionService.processCommand(subCommandName);
                 break;
             case commandEnum.telemetry:
-                var data = telemetryService.getTelemetryData();
-                socketService.emit(eventEnum.telemetry, protoBufHelper.encode(protoBufConfig.telemetry, data));
+                telemetryService.getTelemetryData().then(function (data) {
+                    console.log(data);
+                    socketService.emit(eventEnum.telemetry, protoBufHelper.encode(protoBufConfig.telemetry, data));
+                });
                 break;
             default :
                 console.error("Unrecognized command", commandName);

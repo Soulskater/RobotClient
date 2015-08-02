@@ -5,6 +5,7 @@ var socketService = require('./services/socketService');
 var commandService = require('./services/commandService');
 
 var _serverAddress = "ws://robotserver.azurewebsites.net";
+//var _serverAddress = "ws://192.168.1.112:8090";
 
 socketService.connect(_serverAddress);
 

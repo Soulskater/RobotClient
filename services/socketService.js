@@ -1,9 +1,6 @@
 var socketIo = require('socket.io-client');
 var eventEnum = require('../common/enums/eventEnum');
 
-var protoBufConfig = require('../common/protoBufConfig');
-var protoBufHelper = require('../common/protoBufHelper');
-
 var _serverAddress;
 var _socket;
 
