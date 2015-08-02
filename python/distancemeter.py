@@ -7,8 +7,8 @@ class Distancemeter:
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
-        self.GPIO_TRIGGER = 23
-        self.GPIO_ECHO = 24
+        self.GPIO_TRIGGER = 8
+        self.GPIO_ECHO = 7
 
         # Set pins as output and input
         GPIO.setup(self.GPIO_TRIGGER, GPIO.OUT)  # Trigger
@@ -35,11 +35,11 @@ class Distancemeter:
         return distance
 
     def measure_average(self):
-        distance1 = measure()
+        distance1 = self.measure()
         time.sleep(0.1)
-        distance2 = measure()
+        distance2 = self.measure()
         time.sleep(0.1)
-        distance3 = measure()
+        distance3 = self.measure()
         distance = distance1 + distance2 + distance3
         distance = distance / 3
         GPIO.cleanup()

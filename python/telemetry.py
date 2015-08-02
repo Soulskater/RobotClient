@@ -1,10 +1,11 @@
 from orientation import Orientation
 from distancemeter import Distancemeter
 
+distance = Distancemeter()
+value = distance.measure_average()
+
 orientation = Orientation()
 orientationData = orientation.getOrientation()
-distanceInstance = Distancemeter()
-distance = distanceInstance.measure_average()
-orientationData.append(distance)
+orientationData.append(value)
 
 print orientationData
