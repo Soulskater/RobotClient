@@ -18,6 +18,9 @@ module.exports = {
                     socketService.emit(eventEnum.telemetry, protoBufHelper.encode(protoBufConfig.telemetry, data));
                 });
                 break;
+            case commandEnum.exit:
+                process.exit();
+                break;
             default :
                 console.error("Unrecognized command", commandName);
                 return;

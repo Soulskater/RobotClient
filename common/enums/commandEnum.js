@@ -1,4 +1,5 @@
 module.exports = {
     move: "move",
-    telemetry: "telemetry"
+    telemetry: "telemetry",
+    exit: "exit"
 };

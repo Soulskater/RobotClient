@@ -3,7 +3,7 @@ import time
 import RPi.GPIO as GPIO
 
 
-class Distancemeter:
+class UltraSonicSensor:
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
@@ -34,7 +34,7 @@ class Distancemeter:
 
         return distance
 
-    def measure_average(self):
+    def getReadings(self):
         distance1 = self.measure()
         time.sleep(0.1)
         distance2 = self.measure()

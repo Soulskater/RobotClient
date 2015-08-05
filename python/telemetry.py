@@ -1,11 +1,10 @@
-from orientation import Orientation
-from distancemeter import Distancemeter
+from Orientation import Orientation
+from UltraSonicSensor import UltraSonicSensor
 
-distance = Distancemeter()
-value = distance.measure_average()
+sensor = UltraSonicSensor()
+value = sensor.getReadings()
 
 orientation = Orientation()
 orientationData = orientation.getOrientation()
 orientationData.append(value)
-
 print orientationData

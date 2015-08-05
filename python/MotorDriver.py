@@ -2,7 +2,7 @@ import RPi.GPIO as io
 import time
 import sys
 import signal
-from motor import Motor
+from Motor import Motor
 
 io.cleanup()
 io.setmode(io.BOARD)

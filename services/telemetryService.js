@@ -2,7 +2,7 @@ var pythonService = require('./pythonService');
 var q = require('q');
 var path = require('path');
 
-var telemetryPythonFile = path.join(__dirname, '../python/telemetry.py');
+var telemetryPythonFile = path.join(__dirname, '../python/Telemetry.py');
 
 function _getTelemetryData() {
     var deferred = q.defer();
