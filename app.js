@@ -8,11 +8,35 @@ var obstacleService = require('./services/obstacleAvoidService');
 //var _serverAddress = "ws://robotserver.azurewebsites.net";
 var _serverAddress = "ws://192.168.1.112:8090";
 
-var servoDriver = require('./services/servoDriver');
-servoDriver.setServo(true);
+/*var servoMin = 150;
+ var servoMax = 850;
+ var servoDriver = require('./services/servoDriver');
+ servoDriver.setPWMFreq(60);
+ servoDriver.setServoPulse(0, servoMin);
+ setTimeout(function () {
+ servoDriver.setServoPulse(0, servoMax);
+ setTimeout(function () {
+ servoDriver.setServoPulse(0, 0);
+ }, 1000);
+ }, 1000);*/
+
+var usonic = require('r-pi-usonic');
+console.log("Reading distance");
+var sensor = usonic.createSensor(26, 24, 10);
+var distance = sensor();
+
+console.log(distance);
+
+/*
+var ultraSonicService = require('./services/sensors/ultraSonicSensorService');
+ultraSonicService.init('P1-24', 'P1-26');
 setTimeout(function () {
-    servoDriver.setServo(false);
-}, 3000);
+    var distance = ultraSonicService.read();
+    console.log(distance);
+}, 2000);
+*/
+
+
 /*
  obstacleService.avoidObstacle();
 

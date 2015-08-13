@@ -30,6 +30,7 @@ class UltraSonicSensor:
             stop = time.time()
 
         elapsed = stop - start
+        print elapsed
         distance = (elapsed * 34300) / 2
 
         return distance
