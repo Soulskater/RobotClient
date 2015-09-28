@@ -18,7 +18,8 @@ servoDirection = sys.argv[1]
 pwm = PWM(0x40, debug=True)
 
 servoMin = 150  # Min pulse length out of 4096
-servoMax = 850  # Max pulse length out of 4096
+servoCenter = 275
+servoMax = 380  # Max pulse length out of 4096
 pwm.setPWMFreq(60)  # Set frequency to 60 Hz
 
 if servoDirection == "cw":

@@ -5,10 +5,10 @@ import RPi.GPIO as GPIO
 
 class UltraSonicSensor:
 
-    def __init__(self):
+    def __init__(self, triggerPin, echoPin):
         GPIO.setmode(GPIO.BCM)
-        self.GPIO_TRIGGER = 8
-        self.GPIO_ECHO = 7
+        self.GPIO_TRIGGER = triggerPin
+        self.GPIO_ECHO = echoPin
 
         # Set pins as output and input
         GPIO.setup(self.GPIO_TRIGGER, GPIO.OUT)  # Trigger
@@ -30,7 +30,6 @@ class UltraSonicSensor:
             stop = time.time()
 
         elapsed = stop - start
-        print elapsed
         distance = (elapsed * 34300) / 2
 
         return distance

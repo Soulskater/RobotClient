@@ -1,78 +1,28 @@
-var i2c = require('raspi-i2c').I2C;
+var pwmDriver = require('./pwmDriver');
+var servo = require('./servo');
 
-var _address = 0x40;
-var _mode1 = 0x00;
-var _mode2 = 0x01;
-var _sleep = 0x10;
-var _allCall = 0x01;
-var _outDvr = 0x04;
-var _led0onL = 0x06;
-var _led0onH = 0x07;
-var _led0offL = 0x08;
-var _led0offH = 0x09;
+module.exports = function servoDriver(address, servoDefinitions, debug) {
+    var _address = address || 0x40;
+    var _freq = 60;
+    var _servos = [];
+    var _pwm = pwmDriver(_address, debug);
 
-var _allLedOnL = 0xFA;
-var _allLedOnH = 0xFB;
-var _allLedOffL = 0xFC;
-var _allLedOffH = 0xFD;
-
-var _preScale = 0xFE;
-
-var _i2c = new i2c();
-
-_init();
-function _init() {
-    console.log("Reseting PCA9685 MODE1 (without SLEEP) and MODE2");
-    _setPWM(0, 0, 0);
-    _writeBytes(_mode2, _outDvr);
-    _writeBytes(_mode1, _allCall);
-
-    var mode1 = _i2c.readByteSync(_address, _mode1);
-    console.log("I2C: Device 0x%d returned 0x%d from reg 0x%d", _address, mode1 & 0xFF, _mode1);
-
-    mode1 = mode1 & ~_sleep; //wake up (reset sleep)
-    _writeBytes(_mode1, mode1);
-}
-
-module.exports = {
-    setServoPulse: function (channel, pulse) {
-        _setPWM(channel, 0, pulse);
-    },
-    setPWMFreq: _setPWMFreq
-}
-
-function _setPWM(channel, on, off) {
-    _writeBytes(_led0onL + 4 * channel, on & 0xFF);
-    _writeBytes(_led0onH + 4 * channel, on >> 8);
-    _writeBytes(_led0offL + 4 * channel, off & 0xFF);
-    _writeBytes(_led0offH + 4 * channel, off >> 8);
-}
-
-function _setPWMFreq(freq) {
-    var preScaleVal = 25000000.0; // 25MHz
-    preScaleVal /= 4096.0; // 12 - bit
-    preScaleVal /= parseFloat(freq);
-    preScaleVal -= 1.0;
-    console.log("Setting PWM frequency to %d Hz", freq);
-    console.log("Estimated pre-scale: %d", preScaleVal);
-    var preScale = Math.floor(preScaleVal + 0.5);
-    console.log("Final pre-scale: %d", preScale);
-
-    var oldMode = _i2c.readByteSync(_address, _mode1);
-    var newMode = (oldMode & 0x7F) | 0x10;// sleep
-    _writeBytes(_mode1, newMode); // go to sleep
-    _writeBytes(_preScale, parseInt(Math.floor(preScale)));
-    _writeBytes(_mode1, oldMode);
-    _writeBytes(_mode1, oldMode | 0x80);
-}
-
-function _writeBytes(register, value) {
-    console.log("I2C: Wrote 0x%d to register 0x%d", value, register);
-    _i2c.writeByteSync(_address, register, value);
-}
-
-function _writeErrorHandler(err) {
-    if (err) {
-        console.error("Error writing bytes", err);
+    _init();
+    function _init() {
+        _pwm.setPWMFreq(_freq);
+        servoDefinitions.forEach(function (definition) {
+            _servos.push(servo(_pwm, definition.channel, definition.minValue, definition.maxValue));
+        });
     }
-}
+
+    return {
+        getServo: _getServo
+    };
+
+    function _getServo(num) {
+        if (num < 0 || num > 14) {
+            throw Error('16 channel servo driver must be between 0 and 14 inclusive');
+        }
+        return _servos[num]
+    }
+};

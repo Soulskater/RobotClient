@@ -11,10 +11,17 @@ module.exports = {
         }
         _serverAddress = serverAddress;
         _socket = socketIo(_serverAddress);
+        _socket.binaryType = 'arraybuffer';
 
         _onConnect();
         _onConnectionError();
         _onReconnectAttempt();
+    },
+    close: function () {
+        if (!_socket) {
+            return;
+        }
+        _socket.close();
     },
     on: function (event, handler) {
         if (!eventEnum[event]) {

@@ -1,4 +1,5 @@
 message Command {
     required string name = 1;
     optional string subCommand = 2;
+    optional int32 value = 3;
 }

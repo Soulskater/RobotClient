@@ -1,6 +1,8 @@
 from UltraSonicSensor import UltraSonicSensor
 
-sensor = UltraSonicSensor()
-value = sensor.getReadings()
+sensorLeft = UltraSonicSensor(17, 27)
+valueLeft = sensorLeft.getReadings()
+sensorRight = UltraSonicSensor(8, 7)
+valueRight = sensorRight.getReadings()
 
-print value
+print [valueLeft, valueRight]

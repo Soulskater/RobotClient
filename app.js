@@ -8,37 +8,21 @@ var obstacleService = require('./services/obstacleAvoidService');
 //var _serverAddress = "ws://robotserver.azurewebsites.net";
 var _serverAddress = "ws://192.168.1.112:8090";
 
-/*var servoMin = 150;
- var servoMax = 850;
- var servoDriver = require('./services/servoDriver');
- servoDriver.setPWMFreq(60);
- servoDriver.setServoPulse(0, servoMin);
- setTimeout(function () {
- servoDriver.setServoPulse(0, servoMax);
- setTimeout(function () {
- servoDriver.setServoPulse(0, 0);
- }, 1000);
- }, 1000);*/
+var orientationService = require('./services/sensors/bno055/orientationService')(18, '/dev/ttyAMA0');
 
-var usonic = require('r-pi-usonic');
-console.log("Reading distance");
-var sensor = usonic.createSensor(26, 24, 10);
-var distance = sensor();
+orientationService.begin();
+//orientationService.loadCalibration();
+console.log(orientationService.getCalibrationStatus());
+for (var i = 0; i < 10000; i++) {
+    console.log(orientationService.readEuler());
+}
 
-console.log(distance);
-
-/*
-var ultraSonicService = require('./services/sensors/ultraSonicSensorService');
-ultraSonicService.init('P1-24', 'P1-26');
-setTimeout(function () {
-    var distance = ultraSonicService.read();
-    console.log(distance);
-}, 2000);
-*/
-
-
-/*
- obstacleService.avoidObstacle();
+/*process.on('SIGINT', function () {
+ console.log("Closing");
+ socketService.close();
+ obstacleService.stop();
+ process.exit();
+ });
 
  socketService.connect(_serverAddress);
 
@@ -48,10 +32,7 @@ setTimeout(function () {
  console.warn("Invalid data sent from the server");
  return;
  }
- commandService.processCommand(command.name, command.subCommand);
- });
-
- process.on('exit', function () {
- obstacleService.stop();
- console.log('Goodbye!');
+ commandService.processCommand(command.name, command.subCommand, command.value);
  });*/
+
+//obstacleService.startDetectObstacle();

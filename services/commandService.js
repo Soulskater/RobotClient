@@ -5,18 +5,20 @@ var protoBufHelper = require('../common/protoBufHelper');
 var motionService = require('./motionService');
 var telemetryService = require('./telemetryService');
 var socketService = require('./socketService');
+var frontServoService = require('./frontServoService');
 
 module.exports = {
-    processCommand: function (commandName, subCommandName) {
+    processCommand: function (commandName, subCommandName, value) {
         switch (commandName) {
             case commandEnum.move:
                 motionService.processCommand(subCommandName);
                 break;
             case commandEnum.telemetry:
-                telemetryService.getTelemetryData().then(function (data) {
-                    console.log(data);
-                    socketService.emit(eventEnum.telemetry, protoBufHelper.encode(protoBufConfig.telemetry, data));
-                });
+                var telemetryData = telemetryService.getTelemetryData();
+                socketService.emit(eventEnum.telemetry, protoBufHelper.encode(protoBufConfig.telemetry, telemetryData));
+                break;
+            case commandEnum.moveFrontServo:
+                frontServoService.rotate(subCommandName, value);
                 break;
             case commandEnum.exit:
                 process.exit();

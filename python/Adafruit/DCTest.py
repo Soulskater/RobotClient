@@ -5,7 +5,7 @@ import time
 import atexit
 
 # create a default object, no changes to I2C address or frequency
-mh = Adafruit_MotorHAT(addr=0x61)
+mh = Adafruit_MotorHAT(addr=0x60)
 
 # recommended for auto-disabling motors on shutdown!
 def turnOffMotors():
@@ -21,9 +21,9 @@ myMotor = mh.getMotor(1)
 
 # set the speed to start, from 0 (off) to 255 (max speed)
 myMotor.setSpeed(150)
-myMotor.run(Adafruit_MotorHAT.FORWARD);
+myMotor.run(Adafruit_MotorHAT.FORWARD)
 # turn on motor
-myMotor.run(Adafruit_MotorHAT.RELEASE);
+# myMotor.run(Adafruit_MotorHAT.RELEASE)
 
 
 while (True):
@@ -31,28 +31,28 @@ while (True):
 	myMotor.run(Adafruit_MotorHAT.FORWARD)
 
 	print "\tSpeed up..."
-	for i in range(255):
-		myMotor.setSpeed(i)
-		time.sleep(0.01)
+# for i in range(255):
+	myMotor.setSpeed(500)
+	# time.sleep(0.01)
 
-	print "\tSlow down..."
-	for i in reversed(range(255)):
-		myMotor.setSpeed(i)
-		time.sleep(0.01)
+	# print "\tSlow down..."
+	# for i in reversed(range(255)):
+	# 	myMotor.setSpeed(i)
+	# 	time.sleep(0.01)
 
-	print "Backward! "
-	myMotor.run(Adafruit_MotorHAT.BACKWARD)
+	# print "Backward! "
+	# myMotor.run(Adafruit_MotorHAT.BACKWARD)
+    #
+	# print "\tSpeed up..."
+	# for i in range(255):
+	# 	myMotor.setSpeed(i)
+	# 	time.sleep(0.01)
+    #
+	# print "\tSlow down..."
+	# for i in reversed(range(255)):
+	# 	myMotor.setSpeed(i)
+	# 	time.sleep(0.01)
 
-	print "\tSpeed up..."
-	for i in range(255):
-		myMotor.setSpeed(i)
-		time.sleep(0.01)
-
-	print "\tSlow down..."
-	for i in reversed(range(255)):
-		myMotor.setSpeed(i)
-		time.sleep(0.01)
-
-	print "Release"
-	myMotor.run(Adafruit_MotorHAT.RELEASE)
-	time.sleep(1.0)
+	# print "Release"
+	# myMotor.run(Adafruit_MotorHAT.RELEASE)
+	# time.sleep(1.0)

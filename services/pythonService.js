@@ -10,7 +10,6 @@ module.exports = {
         var output = "";
         pythonProcess.stdout.on('data', function (data) {
             output += data;
-            console.log("Python process data", data.toString());
         });
         pythonProcess.on('exit', function (code) {
             if (code !== 0) {

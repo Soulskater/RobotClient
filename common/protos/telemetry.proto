@@ -1,6 +1,27 @@
 message Telemetry {
-    required int32 roll = 1;
-    required int32 pitch = 2;
-    required int32 heading = 3;
-    required int32 distance = 4;
+    message Distance {
+        required int32 left = 1;
+        required int32 right = 2;
+    }
+
+    message Vector {
+        required int32 x = 1;
+        required int32 y = 2;
+        required int32 z = 3;
+    }
+
+    message Orientation {
+        required int32 roll = 1;
+        required int32 pitch = 2;
+        required int32 heading = 3;
+    }
+
+    required Vector accelerometer = 1;
+    required Vector magnetometer = 2;
+    required Vector gyroscope = 3;
+    required Orientation gravity = 4;
+    required Vector linearAcceleration = 5;
+    required Orientation euler = 6;
+    required Distance distance = 7;
+    required int32 temperature = 8;
 }
